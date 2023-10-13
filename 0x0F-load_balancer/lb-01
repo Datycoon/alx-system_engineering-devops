@@ -1,11 +1,15 @@
 #!/usr/bin/env bash
-# Server-01 login comands
+# Server-01 login
 
-# Setting up the SSH-agent
-eval $("ssh-agent")
+# Start SSH agent
+eval "$(ssh-agent -s)"
 
-# Path to IdentifyFile
+# Add private key to agent
 ssh-add ~/.ssh/school
 
-# Username and IP Address
-ssh ubuntu@54.144.134.220
+# Check if key is added successfully
+ssh-add -L
+
+# Attempt SSH connection
+ssh -v ubuntu@54.144.134.220
+
