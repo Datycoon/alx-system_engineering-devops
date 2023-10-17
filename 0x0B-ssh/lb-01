@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Server-01 login
+# lb-01 login
 
 # Start SSH agent
 eval "$(ssh-agent -s)"
