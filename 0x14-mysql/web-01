@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Server-01 login
+
+# Start SSH agent
+eval "$(ssh-agent -s)"
+
+# Add private key to agent
+ssh-add ~/.ssh/school
+
+# Check if key is added successfully
+ssh-add -L
+
+# Attempt SSH connection
+ssh -v ubuntu@34.201.165.54
+
