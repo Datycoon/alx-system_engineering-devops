@@ -1,22 +1,17 @@
 #!/usr/bin/python3
 """ Module for a function that queries the Reddit API recursively."""
 
-
 import requests
 
-
-def count_words(subreddit, word_list, after='', word_dict={}):
+def count_words(subreddit, word_list, after='', word_dict=None):
     """ A function that queries the Reddit API parses the title of
     all hot articles, and prints a sorted count of given keywords
     (case-insensitive, delimited by spaces.
     Javascript should count as javascript, but java should not).
     If no posts match or the subreddit is invalid, it prints nothing.
     """
-
-    if not word_dict:
-        for word in word_list:
-            if word.lower() not in word_dict:
-                word_dict[word.lower()] = 0
+    if word_dict is None:
+        word_dict = {word.lower(): 0 for word in word_list}
 
     if after is None:
         wordict = sorted(word_dict.items(), key=lambda x: (-x[1], x[0]))
@@ -41,10 +36,11 @@ def count_words(subreddit, word_list, after='', word_dict={}):
             title = post['data']['title']
             lower = [word.lower() for word in title.split(' ')]
 
-            for word in word_dict.keys():
+            for word in word_dict:
                 word_dict[word] += lower.count(word)
 
     except Exception:
         return None
 
     count_words(subreddit, word_list, aft, word_dict)
+
